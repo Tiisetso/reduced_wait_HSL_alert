@@ -25,6 +25,13 @@ upload-c:
 	@$(UPL) upload $(GQL)
 	@$(UPL) upload --compile $(LUA)
 
+upload-secrets:
+	@echo "Generating and uploading secrets.lua (from .env)"
+	@chmod +x ./scripts/generate_secrets.sh
+	@./scripts/generate_secrets.sh
+	@$(UPL) upload secrets.lua
+	@rm -f secrets.lua
+
 rm-init:
 	@echo "Removing init.lua"
 	@$(UPL) file remove init.lua

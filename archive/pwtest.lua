@@ -55,10 +55,18 @@ tmr.create():alarm(1000, tmr.ALARM_AUTO, function(t)
     q = nil --added
     collectgarbage() --added
     print("heap:", node.heap()) --debug print heap size
+
+    local ok, secrets = pcall(require, "secrets")
+    local KEY = ok and secrets.DIGITRANSIT_KEY or nil
+    if not KEY then
+      print("Warning: Digitransit key not found. Create .env and run 'make upload-secrets' to upload secrets.lua.")
+    end
+    local headers = "Content-Type: application/json\r\n"
+    if KEY then headers = headers .. "Digitransit-Subscription-Key: " .. KEY .. "\r\n" end
+
     http.post(
         "https://api.digitransit.fi/routing/v2/hsl/gtfs/v1",
-        "Content-Type: application/json\r\n"..
-        "Digitransit-Subscription-Key: c23a0df762ec4c51a9794743b7470bf2\r\n",
+        headers,
         payload,
         function(code,data)
         if code < 0 then

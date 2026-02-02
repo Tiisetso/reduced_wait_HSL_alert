@@ -28,9 +28,18 @@ tmr.create():alarm(IDLE_AT_STARTUP_MS, tmr.ALARM_SINGLE, function()
   print(("Starting Wi-Fi setup after %dms…"):format(IDLE_AT_STARTUP_MS))
 
   wifi.setmode(wifi.STATION)
+
+  -- Optionally load Wi-Fi credentials from device `secrets.lua` (generated from .env)
+  local ok, secrets = pcall(require, "secrets")
+  local AP = (ok and secrets.WIFI_SSID) or "Hive Stud"
+  local PWD = (ok and secrets.WIFI_PWD) or "shifterambiancefinlesskilt"
+  if not ok then
+    print("No secrets.lua found; using default Wi-Fi credentials (for local dev only).")
+  end
+
   wifi.sta.config(
-    { ssid = "Hive Stud",
-      pwd  = "shifterambiancefinlesskilt" },
+    { ssid = AP,
+      pwd  = PWD },
     true
   )
 

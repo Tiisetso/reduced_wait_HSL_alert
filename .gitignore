@@ -1,2 +1,6 @@
 .vscode/
 .luarc.json
+
+# Secret files (do NOT commit)
+.env
+secrets.lua
