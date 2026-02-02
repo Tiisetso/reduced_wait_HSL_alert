@@ -126,5 +126,3 @@ Usage:
 ```bash
 ./scripts/deploy.sh /dev/ttyUSB0  # specify port (optional, defaults to Makefile PORT)
 ```
-
-This keeps secrets out of source control while making it easy to deploy them to your hardware.
