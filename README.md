@@ -1,4 +1,5 @@
 # Hive ESP8266 (NodeMCU)
+![Circuit diagram](circuit.gif)
 
 Small set of Lua scripts for NodeMCU (ESP8266): LED control, SSD1306 display fetcher for HSL stops, and helper tooling to upload and manage files on the device.
 
